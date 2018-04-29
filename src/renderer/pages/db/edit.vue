@@ -1,0 +1,125 @@
+<template>
+    <div class="container-fluid">
+        <h1>新建数据库</h1>
+        <hr>
+        <div class="col-xs-6">
+            <div class="form-group field-databasesaveform-name" :class="errors.name? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-name">简称</label>
+                <input type="text" id="databasesaveform-name" class="form-control" name="DatabaseSaveForm[name]"
+                       value="fk" v-model="form.name">
+                <p class="help-block help-block-error" v-text="errors.name"></p>
+            </div>
+            <div class="form-group field-databasesaveform-type required" :class="errors.type? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-type">数据库类型</label>
+                <select id="databasesaveform-type" class="form-control" name="DatabaseSaveForm[type]"
+                        v-model="form.type">
+                    <option :value="t.id" v-for="t in types">{{t.name}}</option>
+                </select>
+
+                <p class="help-block help-block-error" v-text="errors.type"></p>
+            </div>
+            <div class="form-group field-databasesaveform-url required" :class="errors.url? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-url">数据库地址</label>
+                <input type="text" id="databasesaveform-url" class="form-control" name="DatabaseSaveForm[url]"
+                       v-model="form.url">
+
+                <p class="help-block help-block-error" v-text="errors.url"></p>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group field-databasesaveform-dbname required" :class="errors.database? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-dbname">数据库</label>
+                <input type="text" id="databasesaveform-dbname" class="form-control" name="DatabaseSaveForm[dbName]"
+                       v-model="form.database">
+
+                <p class="help-block help-block-error" v-text="errors.database"></p>
+            </div>
+            <div class="form-group field-databasesaveform-username required" :class="errors.user? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-username">用户名</label>
+                <input type="text" id="databasesaveform-username" class="form-control" name="DatabaseSaveForm[username]"
+                       v-model="form.user">
+
+                <p class="help-block help-block-error" v-text="errors.user"></p>
+            </div>
+            <div class="form-group field-databasesaveform-password" :class="errors.password? 'has-error' : ''">
+                <label class="control-label" for="databasesaveform-password">密码</label>
+                <input type="password" id="databasesaveform-password" class="form-control"
+                       name="DatabaseSaveForm[password]" v-model="form.password">
+
+                <p class="help-block help-block-error" v-text="errors.password"></p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-xs-8">
+            <button type="submit" class="btn btn-primary" @click="save()">提交</button>&nbsp;&nbsp;
+            <span v-text="result"></span>
+            <!--<a class="btn btn-default" href="javascript: ;">取消</a>-->
+        </div>
+    </div>
+</template>
+
+<script>
+  import { SaveDatabaseForm } from '../../forms/SaveDatabaseForm'
+  import Database from '../../models/Database'
+
+  export default {
+    name: 'edit',
+    data () {
+      return {
+        form: {
+          name: '',
+          type: 'mysql',
+          url: '127.0.0.1',
+          database: '',
+          user: '',
+          password: ''
+        },
+        errors: {},
+        types: SaveDatabaseForm.getTypes(),
+        result: ''
+      }
+    },
+    mounted () {
+      this.getDatabase()
+    },
+    methods: {
+      /**
+       * 点击保存
+       * @return {Promise<boolean>}
+       */
+      async save () {
+        const form = new SaveDatabaseForm(this.form)
+        let run = await form.run()
+
+        if (run) {
+          this.result = '保存成功'
+          return this.$router.push('/databases')
+        }
+
+        this.errors = form.getErrors()
+        this.result = '保存失败'
+      },
+      /**
+       * 获取数据库
+       * @return {Promise<void>}
+       */
+      async getDatabase () {
+        let database = await Database.findOne({
+          where: {id: this.$route.params.id}
+        })
+
+        this.form.id = database.id
+        this.form.name = database.name
+        this.form.type = database.type
+        this.form.url = database.host
+        this.form.database = database.database
+        this.form.user = database.user
+        this.form.password = database.password
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
