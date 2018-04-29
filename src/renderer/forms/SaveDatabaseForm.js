@@ -45,8 +45,10 @@ export class SaveDatabaseForm extends BaseForm {
       return this.addError(attribute, '编辑的数据库不存在')
     }
 
-    if (!await db.isActive()) {
-      this.addError(attribute, '数据库连接异常')
+    try {
+      await db.getConnection().authenticate()
+    } catch (e) {
+      this.addError(attribute, '数据库连接异常: ' + e.message)
     }
   }
 

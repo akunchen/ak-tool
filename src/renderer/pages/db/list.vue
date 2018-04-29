@@ -1,5 +1,7 @@
 <template>
     <div>
+        <h1>数据库列表</h1>
+        <hr>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
