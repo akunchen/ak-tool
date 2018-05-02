@@ -1,7 +1,6 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
-import { openDb } from './sqlite'
 
 /**
  * Set `__static` path to static files in production
