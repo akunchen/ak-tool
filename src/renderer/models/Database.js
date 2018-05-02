@@ -2,7 +2,7 @@ import DataTypes from 'sequelize/lib/data-types'
 import Sequelize from 'Sequelize'
 
 import connection from './connection'
-import { MySqlSchema } from '../util/db/mysql/MySqlSchema'
+import { MySqlSchema, MssqlSchema } from '../util/db/DbSchema'
 
 // 数据库
 let Database = connection.define('Database', {
@@ -93,10 +93,12 @@ Database.prototype.isActive = async function () {
  * @return {Promise<void>}
  */
 Database.prototype.getTables = async function () {
-  let schemas = await this.getConnection().showAllSchemas()
+  let schemas = await this.getConnection().getQueryInterface().showAllTables()
+
   return schemas.map(schema => {
+    // mysql - tableName, mssql - {tableName:'xxxx',schema: 'dbo'}
     return {
-      name: Object.values(schema).shift()
+      name: typeof schema === 'string' ? schema : schema.tableName
     }
   })
 }
@@ -130,6 +132,8 @@ Database.prototype.getTableModelCode = async function (tableName, language) {
   switch (this.type) {
     case 'mysql':
       return MySqlSchema.run(this, tableName, language)
+    case 'mssql':
+      return MssqlSchema.run(this, tableName, language)
     default:
       return null
   }

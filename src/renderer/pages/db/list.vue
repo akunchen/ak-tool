@@ -2,7 +2,7 @@
     <div>
         <h1>数据库列表</h1>
         <hr>
-        <el-table :data="databases" style="width: 100%" height="250" class="table table-striped table-bordered">
+        <el-table :data="databases" style="width: 100%" height="400" class="table table-striped table-bordered">
             <el-table-column prop="id" label="id" width="40"/>
             <el-table-column prop="name" label="简称" width="80"/>
             <el-table-column prop="type" label="类型" width="60"/>

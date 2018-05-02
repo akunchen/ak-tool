@@ -63,7 +63,7 @@
         this.showCopySuccess = true
 
         setTimeout(() => {
-          this.showCopySuccess = true
+          this.showCopySuccess = false
         }, 1000)
       }
     }
