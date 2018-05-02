@@ -98,6 +98,10 @@
        * @return {Promise<void>}
        */
       async getDatabase () {
+        if (!this.$route.params.id) {
+          return false
+        }
+
         let database = await Database.findOne({
           where: {id: this.$route.params.id}
         })

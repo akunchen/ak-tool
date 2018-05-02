@@ -58,6 +58,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "electron-prebuilt": "^1.4.13",
+    "element-ui": "^2.3.6",
     "mssql": "^4.1.0",
     "mysql2": "^1.5.3",
     "node-pre-gyp": "^0.9.1",
@@ -76,6 +77,7 @@
     "babel-plugin-istanbul": "^4.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "babili-webpack-plugin": "^0.1.2",

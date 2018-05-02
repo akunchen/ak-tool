@@ -1,20 +1,20 @@
 <template>
     <div>
-        <div class="form-group">
-            <label class="control-label" for="databasetableschemaform-tablename">Table Name</label>
-            <select id="databasetableschemaform-tablename" class="form-control"
-                    name="DatabaseTableSchemaForm[tableName]" aria-required="true" aria-invalid="false">
-                <optgroup :label="index" v-for="(table,index) in tables">
-                    <option :value="table.name" v-text="table.name"></option>
-                </optgroup>
-            </select>
-
-            <p class="help-block help-block-error"></p>
-        </div>
+        <el-select v-model="selectedTable" filterable placeholder="请选择" @change="selectChange" value="">
+            <el-option v-for="table in tables" :key="table.name" :label="table.name" :value="table.name"/>
+        </el-select>
+        <el-select v-model="selectedLanguage" value="" @change="selectChange">
+            <el-option v-for="language in languages" :key="language" :label="language" :value="language"/>
+        </el-select>
+        <el-button type="primary" @click="copyCode">复制</el-button>
+        <span v-if="showCopySuccess">复制成功！</span>
+        <hr v-if="code">
+        <pre v-text="code" v-if="code"></pre>
     </div>
 </template>
 
 <script>
+  import { clipboard } from 'electron'
   import Database from '../../models/Database'
 
   export default {
@@ -22,22 +22,49 @@
     data () {
       return {
         tables: [],
-        selectTable: {},
-        database: null
+        selectedTable: null,
+        selectedLanguage: 'java',
+        database: null,
+        tableSchema: {},
+        languages: ['js', 'php', 'java'],
+        code: '',
+        showCopySuccess: false
       }
     },
     async mounted () {
       this.database = await Database.findById(this.$route.params.id)
-      this.getTables()
+      await this.getTables()
     },
     methods: {
+      /**
+       * 获取数据库的表
+       * @return {Promise<void>}
+       */
       async getTables () {
-        let schemas = await this.database.getConnection().showAllSchemas()
-        this.tables = schemas.map(schema => {
-          return {
-            name: Object.values(schema).shift()
-          }
-        })
+        this.tables = await this.database.getTables()
+      },
+      /**
+       * 切换选择
+       * @return {Promise<boolean>}
+       */
+      async selectChange () {
+        if (!this.selectedTable || !this.selectedLanguage) {
+          return false
+        }
+
+        this.code = await this.database.getTableModelCode(this.selectedTable, this.selectedLanguage)
+      },
+      /**
+       * 复制代码
+       * @return {Promise<void>}
+       */
+      async copyCode () {
+        clipboard.writeText(this.code)
+        this.showCopySuccess = true
+
+        setTimeout(() => {
+          this.showCopySuccess = true
+        }, 1000)
       }
     }
   }

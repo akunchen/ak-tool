@@ -6,7 +6,7 @@
         ["env", {
           "targets": { "node": 7 }
         }],
-        "stage-0"
+        "es2017"
       ],
       "plugins": ["istanbul"]
     },
@@ -15,7 +15,7 @@
         ["env", {
           "targets": { "node": 7 }
         }],
-        "stage-0"
+        "es2017"
       ]
     },
     "renderer": {
@@ -23,7 +23,7 @@
         ["env", {
           "modules": false
         }],
-        "stage-0"
+        "es2017"
       ]
     },
     "web": {
@@ -31,7 +31,7 @@
         ["env", {
           "modules": false
         }],
-        "stage-0"
+        "es2017"
       ]
     }
   },

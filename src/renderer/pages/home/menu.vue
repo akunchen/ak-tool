@@ -1,24 +1,43 @@
 <template>
-    <div class="home-menu-container">
-        <div class="panel-group">
-            <div class="panel" v-for="menu in menus">
-                <div class="panel-heading" @click="toggleMenu(menu)">
-                    <div class="panel-title">
-                        <div class="panel-toggle">{{menu.name}}</div>
-                    </div>
-                </div>
-                <div class="panel-collapse collapse" :class="menu.showClass" v-if="menu.items && menu.items.length > 0">
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item" v-for="item in menu.items" @click="link(item)">
-                                {{item.name}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <el-row class="tac home-menu-container">
+        <el-col :span="24">
+            <el-menu default-active="2"
+                     background-color="#30404f"
+                     text-color="#fff"
+                     active-text-color="#ffd04b">
+                <el-submenu v-for="(menu,index) in menus" :index="'' +index">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>{{menu.name}}</span>
+                    </template>
+                    <router-link v-for="(item,itemIndex) in menu.items" :to="item.url">
+                        <el-menu-item :index="'' +index+ itemIndex">
+                            {{item.name}}
+                        </el-menu-item>
+                    </router-link>
+
+                </el-submenu>
+            </el-menu>
+        </el-col>
+    </el-row>
+    <!--<div class="panel-group">-->
+    <!--<div class="panel" v-for="menu in menus">-->
+    <!--<div class="panel-heading" @click="toggleMenu(menu)">-->
+    <!--<div class="panel-title">-->
+    <!--<div class="panel-toggle">{{menu.name}}</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="panel-collapse collapse" :class="menu.showClass" v-if="menu.items && menu.items.length > 0">-->
+    <!--<div class="panel-body">-->
+    <!--<ul class="list-group">-->
+    <!--<li class="list-group-item" v-for="item in menu.items" @click="link(item)">-->
+    <!--{{item.name}}-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </template>
 
 <script>

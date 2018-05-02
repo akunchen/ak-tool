@@ -8,7 +8,7 @@ const dbConfig = {
   database: 'main',
   // timezone: '+08:00', // 设置时差
   pool: {max: 10, min: 0, idle: 100000},
-  storage: '/Users/akun/workspace/static/ak-tool.sqlite'
+  storage: '/var/share/ak-tool.sqlite'
 }
 
 let config = Object.assign({

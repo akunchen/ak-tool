@@ -2,6 +2,11 @@
 @menuColor: #30404f;
 @menuActiveColor: #203845;
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 #wrapper {
   background: radial-gradient(ellipse at top left, rgba(255, 255, 255, 1) 40%, rgba(229, 229, 229, .9) 100%);
   height: 100vh;
@@ -32,37 +37,5 @@ main {
 }
 
 .home-menu-container {
-  .panel,
-  .list-group .list-group-item {
-    border-radius: 0;
-  }
-
-  .panel,
-  .panel-body,
-  .panel-heading {
-    background-color: transparent;
-    color: #fff;
-    border: 0;
-  }
-
-  .panel-heading {
-    cursor: pointer;
-  }
-
-  .list-group {
-    margin-bottom: 0;
-  }
-  .list-group-item {
-    border: 0;
-    padding-left: 40px;
-    cursor: pointer;
-    background-color: @menuActiveColor;
-  }
-  .panel-body {
-    padding: 0;
-  }
-
-  .panel-collapse {
-    background-color: @menuActiveColor;
-  }
+  overflow-x: hidden;
 }
