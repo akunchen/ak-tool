@@ -25,14 +25,14 @@
         </div>
         <div class="col-xs-6">
             <div class="form-group" :class="errors.database? 'has-error' : ''">
-                <label class="control-label" for="databasesaveform-dbname">数据库</label>
-                <input type="text" id="databasesaveform-dbname" class="form-control" v-model="form.database">
+                <label class="control-label" for="databasesaveform-database">数据库</label>
+                <input type="text" id="databasesaveform-database" class="form-control" v-model="form.database">
 
                 <p class="help-block help-block-error" v-text="errors.database"></p>
             </div>
             <div class="form-group" :class="errors.user? 'has-error' : ''">
-                <label class="control-label" for="databasesaveform-username">用户名</label>
-                <input type="text" id="databasesaveform-username" class="form-control" v-model="form.user">
+                <label class="control-label" for="databasesaveform-user">用户名</label>
+                <input type="text" id="databasesaveform-user" class="form-control" v-model="form.user">
 
                 <p class="help-block help-block-error" v-text="errors.user"></p>
             </div>
@@ -53,8 +53,11 @@
 </template>
 
 <script>
+  import { remote, clipboard } from 'electron'
   import { SaveDatabaseForm } from '../../forms/SaveDatabaseForm'
   import Database from '../../models/Database'
+
+  const {Menu, MenuItem} = remote
 
   export default {
     name: 'edit',
@@ -75,6 +78,7 @@
     },
     mounted () {
       this.getDatabase()
+      this.bindClick()
     },
     methods: {
       /**
@@ -113,6 +117,20 @@
         this.form.database = database.database
         this.form.user = database.user
         this.form.password = database.password
+      },
+      bindClick () {
+        const _this = this;
+        ['name', 'url', 'database', 'user', 'password'].forEach(key => {
+          const menu = new Menu()
+
+          menu.append(new MenuItem({label: '粘贴', click () { _this.form[key] = clipboard.readText('String') }}))
+          menu.append(new MenuItem({label: '清空', click () { _this.form[key] = '' }}))
+
+          document.getElementById(`databasesaveform-${key}`).addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            menu.popup(remote.getCurrentWindow())
+          }, false)
+        })
       }
     }
   }

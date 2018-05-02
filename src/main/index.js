@@ -34,7 +34,6 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
-  openDb()
 })
 
 app.on('window-all-closed', () => {
