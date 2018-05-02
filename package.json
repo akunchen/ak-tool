@@ -57,7 +57,6 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "electron-prebuilt": "^1.4.13",
     "element-ui": "^2.3.6",
     "mssql": "^4.1.0",
     "mysql2": "^1.5.3",
@@ -94,6 +93,7 @@
     "electron-builder": "^19.19.1",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
+    "electron-prebuilt": "^1.4.13",
     "electron-rebuild": "^1.7.3",
     "eslint": "^4.4.1",
     "eslint-config-standard": "^10.2.1",
