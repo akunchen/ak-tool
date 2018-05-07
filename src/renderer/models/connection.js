@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-const dbConfig = {
+let config = {
   dialect: 'sqlite',
   // host: '127.0.0.1',
   // username: 'root',
@@ -8,10 +8,7 @@ const dbConfig = {
   database: 'main',
   // timezone: '+08:00', // 设置时差
   pool: {max: 10, min: 0, idle: 100000},
-  storage: '/var/share/ak-tool.sqlite'
-}
-
-let config = Object.assign({
+  storage: '/var/share/ak-tool.sqlite',
   define: {
     timestamps: true,
     freezeTableName: true,
@@ -37,7 +34,7 @@ let config = Object.assign({
       instanceMethods: {}
     }
   }
-}, dbConfig)
+}
 
 const connection = new Sequelize(config)
 

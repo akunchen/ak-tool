@@ -5,13 +5,13 @@
                      background-color="#30404f"
                      text-color="#fff"
                      active-text-color="#ffd04b">
-                <el-submenu v-for="(menu,index) in menus" :index="'' +index">
+                <el-submenu v-for="(menu,index) in menus" :index="'' +index" :key="'' +index">
                     <template slot="title">
                         <i class="el-icon-location"></i>
                         <span>{{menu.name}}</span>
                     </template>
-                    <router-link v-for="(item,itemIndex) in menu.items" :to="item.url">
-                        <el-menu-item :index="'' +index+ itemIndex">
+                    <router-link v-for="(item,itemIndex) in menu.items" :to="item.url" :key="item.url">
+                        <el-menu-item :index="'' +index+ itemIndex" :key="'' +index+ itemIndex">
                             {{item.name}}
                         </el-menu-item>
                     </router-link>

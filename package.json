@@ -58,6 +58,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "element-ui": "^2.3.6",
+    "lodash": "^4.17.10",
     "mysql2": "^1.5.3",
     "node-pre-gyp": "^0.9.1",
     "pg": "^7.4.1",
