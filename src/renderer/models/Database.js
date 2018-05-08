@@ -20,8 +20,6 @@ let Database = connection.define('Database', {
   status: DataTypes.BOOLEAN,
   config: DataTypes.STRING(500)
 }, {
-  instanceMethods: {},
-  getterMethods: {},
   tableName: 't_database'
 })
 

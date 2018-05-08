@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 
+import { Init } from './utils/Init'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -34,6 +35,7 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
+  Init.run()
 })
 
 app.on('window-all-closed', () => {

@@ -12,7 +12,9 @@
 
 <style lang="less" rel="stylesheet/less">
     /*@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');*/
-    @import "~bootstrap/dist/css/bootstrap.css";
+    .el-upload__input {
+        display: none !important;
+    }
 
     #app {
         padding-left: 0;

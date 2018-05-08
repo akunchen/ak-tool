@@ -7,7 +7,7 @@
                      active-text-color="#ffd04b">
                 <el-submenu v-for="(menu,index) in menus" :index="'' +index" :key="'' +index">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i :class="menu.iconClass"></i>
                         <span>{{menu.name}}</span>
                     </template>
                     <router-link v-for="(item,itemIndex) in menu.items" :to="item.url" :key="item.url">
@@ -20,24 +20,6 @@
             </el-menu>
         </el-col>
     </el-row>
-    <!--<div class="panel-group">-->
-    <!--<div class="panel" v-for="menu in menus">-->
-    <!--<div class="panel-heading" @click="toggleMenu(menu)">-->
-    <!--<div class="panel-title">-->
-    <!--<div class="panel-toggle">{{menu.name}}</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="panel-collapse collapse" :class="menu.showClass" v-if="menu.items && menu.items.length > 0">-->
-    <!--<div class="panel-body">-->
-    <!--<ul class="list-group">-->
-    <!--<li class="list-group-item" v-for="item in menu.items" @click="link(item)">-->
-    <!--{{item.name}}-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
 </template>
 
 <script>
@@ -48,10 +30,24 @@
         menus: [
           {
             name: '数据库',
-            showClass: 'in',
+            iconClass: 'el-icon-location',
             items: [
               {name: '列表', url: '/databases'},
               {name: '新建', url: '/database'}
+            ]
+          },
+          {
+            name: '系统设置',
+            iconClass: 'el-icon-setting',
+            items: [
+              {name: '七牛云', url: '/config/qiniu'}
+            ]
+          },
+          {
+            name: '图片管理',
+            iconClass: 'el-icon-location',
+            items: [
+              {name: '图片列表', url: '/images'}
             ]
           }
         ]
@@ -60,9 +56,6 @@
     async created () {
     },
     methods: {
-      toggleMenu (menu) {
-        menu.showClass = menu.showClass ? '' : 'in'
-      },
       link (item) {
         this.$router.push(item.url)
       }

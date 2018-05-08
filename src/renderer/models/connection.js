@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize'
+import { DB_PATH } from '../util/Constants'
+
 
 let config = {
   dialect: 'sqlite',
@@ -8,10 +10,10 @@ let config = {
   database: 'main',
   // timezone: '+08:00', // 设置时差
   pool: {max: 10, min: 0, idle: 100000},
-  storage: '/var/share/ak-tool.sqlite',
+  storage: DB_PATH,
   define: {
     timestamps: true,
-    freezeTableName: true,
+    freezeTableName: false,
     classMethods: {
       createDate () {
         return new Date()
