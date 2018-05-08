@@ -20,8 +20,14 @@
             <el-table-column prop="createdAt" label="更新时间" :formatter="formatTime"/>
             <el-table-column label="操作" prop="id">
                 <template slot-scope="scope">
-                    <el-button type="default" @click="modifyImage(scope.row)">修改</el-button>
-                    <el-button type="danger" @click="removeImage(scope.row)">删除</el-button>
+                    <p>
+                        <el-button type="default" size="mini" @click="viewBigImage(scope.row)">查看大图</el-button>
+                        <el-button type="default" size="mini" @click="modifyImage(scope.row)">修改</el-button>
+                    </p>
+                    <p>
+                        <el-button type="default" size="mini" @click="copyLink(scope.row)">复制链接</el-button>
+                        <el-button type="danger" size="mini" @click="removeImage(scope.row)">删除</el-button>
+                    </p>
                 </template>
             </el-table-column>
         </el-table>
@@ -72,6 +78,7 @@
 </template>
 
 <script>
+  import { clipboard } from 'electron'
   import { qiniuHelper } from '../../util/Qiniu'
   import { Image } from '../../models'
   import { singleParse } from '../../util'
@@ -220,6 +227,14 @@
       currentPageChange (currentPage) {
         this.currentPage = currentPage
         this.getImages()
+      },
+      /**
+       * 复制链接
+       * @param {Image} image
+       */
+      copyLink (image) {
+        clipboard.writeText(image.getUrl())
+        new Notification('复制成功')
       }
     }
   }
