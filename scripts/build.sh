@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+cp ../src/renderer/models/* ../src/main/models/
+cp -rf ../src/renderer/util/* ../src/main/util/
 
 baseDir=..
 packageDir=dist/package

@@ -1,9 +1,10 @@
 import * as fs from 'fs'
-import { DB_KEY_QINIU, DB_PATH } from '../utils/Constants'
+import { DB_KEY_QINIU, DB_PATH } from './Constants'
 import connection from '../models/connection'
 import * as models from '../models/index'
 
 export class Init {
+
   static run () {
     this.initDb()
   }
