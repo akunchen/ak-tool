@@ -1,7 +1,7 @@
 import * as fs from 'fs'
-import { DB_KEY_QINIU, DB_PATH } from '../../renderer/util/Constants'
-import connection from '../../renderer/models/connection'
-import * as models from '../../renderer/models/index'
+import { DB_KEY_QINIU, DB_PATH } from '../utils/Constants'
+import connection from '../models/connection'
+import * as models from '../models/index'
 
 export class Init {
   static run () {
